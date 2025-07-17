@@ -1,0 +1,164 @@
+/* Root-level theme variables */
+:root[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --glass-bg: rgba(240, 240, 240, 0.6);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --active-bg: #007bff;
+  --active-text: #ffffff;
+  --border-color: #cccccc;
+}
+
+:root[data-theme='dark'] {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --glass-bg: rgba(40, 40, 40, 0.4);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --active-bg: #00b4ff;
+  --active-text: #000000;
+  --border-color: #333333;
+}
+
+/* ---------------- Header Styles ---------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 4px 3vw;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  z-index: 99;
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.header-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* ---------------- Tab Styles ---------------- */
+
+.tab-container {
+  border-radius: 25px;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  width: max-content;
+  padding: 2px 8px;
+}
+
+.tab-container button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+}
+
+.tab-container button:hover {
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+
+.tab-container ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab-container li {
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  padding: 2px 8px;
+  transition: background 0.2s ease;
+}
+
+.tab-container li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+}
+
+/* Active tab */
+.tab-container .active {
+  background-color: var(--active-bg);
+  color: var(--active-text);
+}
+
+/* ---------------- Settings Button & Card ---------------- */
+
+.settings-btn {
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 6px;
+}
+
+.settings-btn:hover {
+  box-shadow: var(--shadow);
+}
+
+.settings-card {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  width: 240px;
+  box-shadow: var(--shadow);
+  z-index: 10;
+}
+
+.settings-card h4 {
+  margin: 0.5rem 0 0.25rem;
+}
+
+.settings-card select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+/* Optional clear/reset button inside settings */
+.settings-card button {
+  font-size: 0.875rem;
+}
+
+.clear-app-btn {
+    margin-top: 1rem;
+    background-color: crimson;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+.clear-app-btn:hover {
+    background-color: darkred;
+}
