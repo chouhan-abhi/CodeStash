@@ -1,9 +1,11 @@
 .app-layout {
   display: flex;
-  margin-top: 60px;
-  height: calc(100vh - 80px); /* Assuming header is 60px */
+  height: calc(100vh - 100px); /* Assuming header is 60px */
   background-color: var(--bg-color);
   color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin: 60px 40px;
 }
 
 .editor-panel {
@@ -15,9 +17,8 @@
 
 .output-panel {
   width: 40%;
-  padding: 1rem;
+  padding: 4px 8px;
   box-sizing: border-box;
-  background-color: var(--glass-bg);
   backdrop-filter: blur(6px);
 }
 
@@ -36,38 +37,30 @@
   color: var(--text-color);
 }
 
-.run-btn {
-  padding: 6px 12px;
-  background-color: var(--active-bg);
-  color: var(--active-text);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-.run-btn:hover {
-  opacity: 0.9;
-}
-
-.run-btn, .clear-output-btn {
+.output-btn {
   margin: 8px 0;
-  padding: 6px 12px;
-  background-color: var(--active-bg);
-  color: var(--active-text);
+  padding: 2px 4px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
-}
-
-.clear-output-btn {
+  border-radius: 4px;
   background-color: var(--active-bg);
+  color: var(--active-color);
 }
 
-.output-header {
-  display: flex;
-  justify-content: start;
+.time-keeper {
+  background-color: transparent;
+  border: 1px solid var(--active-bg);
+}
+
+.output-toolbar-container {
+  display: inline-flex;
+  width: 100%;
+  color: var(--text-color);
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+}
+
+.toolbar-actions {
+  display: inherit;
   gap: 4px;
 }

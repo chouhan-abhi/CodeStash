@@ -5,6 +5,7 @@ import ErrorBoundary from './Utils/ErrorBoundary';
 import Header from './Components/Header/Header';
 import { ThemeProvider } from './Providers/ThemeContext';
 import AppLayout from './Components/AppLayout/AppLayout';
+import Footer from './Components/Footer/Footer';
 
 export const AppContext = createContext();
 
@@ -14,12 +15,12 @@ function App() {
     return savedState
       ? JSON.parse(savedState)
       : {
-          tabs: {
-            'tab-1': { id: 'tab-1', name: 'Tab 1', code: '' }
-          },
-          activeTabId: 'tab-1',
-          font: 'Monospace'
-        };
+        tabs: {
+          'tab-1': { id: 'tab-1', name: 'Tab 1', code: "console.log('SUP!')" }
+        },
+        activeTabId: 'tab-1',
+        font: '',
+      };
   });
 
   // Persist app state to localStorage
@@ -31,8 +32,11 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <AppContext.Provider value={{ appState, updateAppState: setAppState }}>
+          <div className='app'>
           <Header />
           <AppLayout />
+          <Footer />
+          </div>
         </AppContext.Provider>
       </ThemeProvider>
     </ErrorBoundary>

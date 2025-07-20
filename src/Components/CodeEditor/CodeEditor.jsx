@@ -2,9 +2,13 @@
 import { useContext, useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import { AppContext } from '../../App';
+import { ThemeContext } from '../../Providers/ThemeContext';
 
 const CodeEditor = () => {
   const { appState, updateAppState } = useContext(AppContext);
+  const { theme } = useContext(ThemeContext);
+  console.log(theme);
+
   const { activeTabId, tabs } = appState;
   const tab = tabs[activeTabId];
 
@@ -26,8 +30,16 @@ const CodeEditor = () => {
       height="100%"
       language="javascript"
       value={tab?.code}
-      theme="vs-dark"
+      theme={theme !== 'light' ? "vs-dark" : 'light'}
       onChange={(value) => handleChange(value)}
+      options={{
+        minimap: {
+          enabled: false,
+        },
+        fontSize: 14,
+        cursorStyle: "block",
+        wordWrap: "on",
+      }}
     />
   );
 };

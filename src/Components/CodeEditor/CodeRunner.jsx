@@ -9,6 +9,7 @@ const CodeRunner = () => {
   const [execTime, setExecTime] = useState(null);
 
   const code = tabs?.[activeTabId]?.code || '';
+  const activeTab = tabs[activeTabId];
 
   const runCodeInIframe = () => {
     const sandboxHtml = `
@@ -78,16 +79,39 @@ const CodeRunner = () => {
     return () => window.removeEventListener('message', listener);
   }, [activeTabId, updateAppState]);
 
+  const clearOutput = () => {
+    if (!activeTab) return;
+    updateAppState(prev => ({
+      ...prev,
+      tabs: {
+        ...prev.tabs,
+        [activeTabId]: {
+          ...prev.tabs[activeTabId],
+          logs: [],
+        },
+      },
+    }));
+    setExecTime(null);
+  };
+
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-      <button onClick={runCodeInIframe} className="run-btn">
-        Run ▶
-      </button>
-      {execTime !== null && (
-        <span style={{ fontSize: '0.9rem', color: 'var(--text-color)' }}>
-          Execution time: {execTime} ms
-        </span>
-      )}
+    <div>
+      <div className='output-toolbar-container'>
+        Console
+        <div className='toolbar-actions'>
+          {execTime !== null && (
+            <span className='output-btn time-keeper'>
+              {execTime} ms
+            </span>
+          )}
+          <button onClick={runCodeInIframe} className="output-btn">
+            Run
+          </button>
+          <button className="output-btn " onClick={clearOutput}>
+            Clear Output
+          </button>
+        </div>
+      </div>
       <iframe
         ref={iframeRef}
         title="sandbox"

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Header.css';
-import { CirclePlus, CircleX, Settings } from 'lucide-react';
+import { CirclePlus, X, Settings } from 'lucide-react';
 import { AppContext } from '../../App';
 import { ThemeContext } from '../../Providers/ThemeContext';
 
@@ -12,13 +12,15 @@ const Header = () => {
 
     const { tabs, activeTabId, font = 'Monospace' } = appState;
     const [showSettings, setShowSettings] = useState(false);
+    const [renamingTabId, setRenamingTabId] = useState(null);
+    const [tempTabName, setTempTabName] = useState('');
 
     const handleAddTab = () => {
         const id = `tab-${Date.now()}`;
         const newTab = {
             id,
             name: `Tab ${Object.keys(tabs).length + 1}`,
-            code: ''
+            code: "console.log('SUP!')"
         };
         updateAppState(prev => ({
             ...prev,
@@ -62,6 +64,21 @@ const Header = () => {
         }
     };
 
+    const handleRename = (tabId, newName) => {
+        updateAppState(prev => ({
+            ...prev,
+            tabs: {
+                ...prev.tabs,
+                [tabId]: {
+                    ...prev.tabs[tabId],
+                    name: newName || prev.tabs[tabId].name // fallback if empty
+                }
+            }
+        }));
+        setRenamingTabId(null);
+        setTempTabName('');
+    };
+
     return (
         <div className="header">
             <div className="header-left">
@@ -74,7 +91,34 @@ const Header = () => {
                                 className={`tab ${tab.id === activeTabId ? 'active' : ''}`}
                                 onClick={() => handleTabClick(tab.id)}
                             >
-                                {tab.name}
+                                {renamingTabId === tab.id ? (
+                                    <input
+                                        type="text"
+                                        className="rename-input"
+                                        value={tempTabName}
+                                        autoFocus
+                                        onChange={(e) => setTempTabName(e.target.value)}
+                                        onBlur={() => handleRename(tab.id, tempTabName)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                handleRename(tab.id, tempTabName);
+                                            } else if (e.key === 'Escape') {
+                                                setRenamingTabId(null);
+                                            }
+                                        }}
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                ) : (
+                                    <span
+                                        onDoubleClick={(e) => {
+                                            e.stopPropagation();
+                                            setRenamingTabId(tab.id);
+                                            setTempTabName(tab.name);
+                                        }}
+                                    >
+                                        {tab.name}
+                                    </span>
+                                )}
                                 <button
                                     className="remove-tab-btn"
                                     aria-label={`Close ${tab.name}`}
@@ -83,7 +127,7 @@ const Header = () => {
                                         handleRemoveTab(tab.id);
                                     }}
                                 >
-                                    <CircleX width={14} />
+                                    <X width={12} height={12} />
                                 </button>
                             </li>
                         ))}
@@ -106,7 +150,7 @@ const Header = () => {
                     aria-label="Settings"
                     onClick={() => setShowSettings(prev => !prev)}
                 >
-                    <Settings width={16} />
+                    <Settings width={16} color="var(--active-bg)" />
                 </button>
 
                 {showSettings && (
@@ -133,13 +177,11 @@ const Header = () => {
                             ))}
                         </select>
 
-                        <hr />
-
                         <button
                             className="clear-app-btn"
                             onClick={handleClearAppData}
                         >
-                            Clear App Data
+                            Reset App
                         </button>
                     </div>
                 )}
