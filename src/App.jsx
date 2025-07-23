@@ -20,6 +20,7 @@ function App() {
         },
         activeTabId: 'tab-1',
         font: '',
+        options: { isMinimapEnabled: true}
       };
   });
 
@@ -33,9 +34,9 @@ function App() {
       <ThemeProvider>
         <AppContext.Provider value={{ appState, updateAppState: setAppState }}>
           <div className='app'>
-          <Header />
-          <AppLayout />
-          <Footer />
+            <Header />
+            <AppLayout />
+            <Footer />
           </div>
         </AppContext.Provider>
       </ThemeProvider>

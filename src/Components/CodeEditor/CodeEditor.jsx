@@ -34,7 +34,7 @@ const CodeEditor = () => {
       onChange={(value) => handleChange(value)}
       options={{
         minimap: {
-          enabled: false,
+          enabled: appState.isMinmapEnabled,
         },
         fontSize: 14,
         cursorStyle: "block",

@@ -10,7 +10,7 @@ const Header = () => {
     const { appState, updateAppState } = useContext(AppContext);
     const { theme, updateTheme } = useContext(ThemeContext);
 
-    const { tabs, activeTabId, font = 'Monospace' } = appState;
+    const { tabs, activeTabId, font = 'Monospace', options = {} } = appState;
     const [showSettings, setShowSettings] = useState(false);
     const [renamingTabId, setRenamingTabId] = useState(null);
     const [tempTabName, setTempTabName] = useState('');
@@ -63,6 +63,13 @@ const Header = () => {
             window.location.reload();
         }
     };
+
+    const handleMinimapUpdate = () => {
+        updateAppState(prev => ({
+            ...prev,
+            options: { ...prev?.options, isMinimapEnabled: !prev?.options?.isMinimapEnabled }
+        }));
+    }
 
     const handleRename = (tabId, newName) => {
         updateAppState(prev => ({
@@ -149,6 +156,7 @@ const Header = () => {
                     className="settings-btn"
                     aria-label="Settings"
                     onClick={() => setShowSettings(prev => !prev)}
+                    title='settings'
                 >
                     <Settings width={16} color="var(--active-bg)" />
                 </button>
@@ -176,6 +184,16 @@ const Header = () => {
                                 </option>
                             ))}
                         </select>
+                        {/* 
+                        <h4>
+                            <input
+                                className="clear-app-btn"
+                                onClick={handleMinimapUpdate}
+                                type='radio'
+                                value={options?.isMinimapEnabled}
+                            />
+                            MiniMap Enabled
+                        </h4> */}
 
                         <button
                             className="clear-app-btn"

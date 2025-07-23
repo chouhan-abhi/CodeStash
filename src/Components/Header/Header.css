@@ -168,8 +168,8 @@
 .footer-content{
   display: inherit;
   gap: 12px;
-}
-
-.footer-content {
+  border-radius: 8px 8px 0 0;
+  background-color: var(--bg-color-2);
+  padding: 4px 12px 2px;
   cursor: pointer;
 }
